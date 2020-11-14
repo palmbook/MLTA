@@ -1,2 +1,2 @@
-# DL-TA
-Deep Learning Driven Technical Analysis Library in Python
+# MLTA
+Machine Learning Driven Technical Analysis Library in Python

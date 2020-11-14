@@ -14,14 +14,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ML-TA",
+    name="MLTA",
     version="0.0.1",
     author="DeeperTrade",
     author_email="chakrit.y@deepertrade.com",
     description="Technical Analysis enhanced through Machine Learning",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/palmbook/ML-TA",
+    url="https://github.com/palmbook/MLTA",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
