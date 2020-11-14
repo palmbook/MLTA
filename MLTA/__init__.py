@@ -23,7 +23,7 @@ class Candlestick:
         assert df.shape[0] > 0
         
     def patternProb(self, df, pattern):
-        checkDF(df)
+        self.checkDF(df)
         
         df = df.copy()
         divisor = df[['Open', 'High', 'Low', 'Close']].mean(axis=1)
@@ -34,88 +34,88 @@ class Candlestick:
         return pd.DataFrame(y_pred, columns = [pattern + '_class_' + str(c) for c in candle_models[pattern].classes_], index=df.index)
         
     def CDL3INSIDE(self, df):
-        return patternProb(df, 'CDL3INSIDE')
+        return self.patternProb(df, 'CDL3INSIDE')
         
     def CDL3LINESTRIKE(self, df):
-        return patternProb(df, 'CDL3LINESTRIKE')
+        return self.patternProb(df, 'CDL3LINESTRIKE')
         
     def CDL3OUTSIDE(self, df):
-        return patternProb(df, 'CDL3OUTSIDE')
+        return self.patternProb(df, 'CDL3OUTSIDE')
         
     def CDL3WHITESOLDIERS(self, df):
-        return patternProb(df, 'CDL3WHITESOLDIERS')
+        return self.patternProb(df, 'CDL3WHITESOLDIERS')
         
     def CDLCLOSINGMARUBOZU(self, df):
-        return patternProb(df, 'CDLCLOSINGMARUBOZU')
+        return self.patternProb(df, 'CDLCLOSINGMARUBOZU')
         
     def CDLCOUNTERATTACK(self, df):
-        return patternProb(df, 'CDLCOUNTERATTACK')
+        return self.patternProb(df, 'CDLCOUNTERATTACK')
         
     def CDLDOJI(self, df):
-        return patternProb(df, 'CDLDOJI')
+        return self.patternProb(df, 'CDLDOJI')
         
     def CDLDRAGONFLYDOJI(self, df):
-        return patternProb(df, 'CDLDRAGONFLYDOJI')
+        return self.patternProb(df, 'CDLDRAGONFLYDOJI')
         
     def CDLGAPSIDESIDEWHITE(self, df):
-        return patternProb(df, 'CDLGAPSIDESIDEWHITE')
+        return self.patternProb(df, 'CDLGAPSIDESIDEWHITE')
         
     def CDLGRAVESTONEDOJI(self, df):
-        return patternProb(df, 'CDLGRAVESTONEDOJI')
+        return self.patternProb(df, 'CDLGRAVESTONEDOJI')
         
     def CDLHAMMER(self, df):
-        return patternProb(df, 'CDLHAMMER')
+        return self.patternProb(df, 'CDLHAMMER')
         
     def CDLHARAMI(self, df):
-        return patternProb(df, 'CDLHARAMI')
+        return self.patternProb(df, 'CDLHARAMI')
         
     def CDLHOMINGPIGEON(self, df):
-        return patternProb(df, 'CDLHOMINGPIGEON')
+        return self.patternProb(df, 'CDLHOMINGPIGEON')
     
     def CDLINVERTEDHAMMER(self, df):
-        return patternProb(df, 'CDLINVERTEDHAMMER')
+        return self.patternProb(df, 'CDLINVERTEDHAMMER')
     
     def CDLLADDERBOTTOM(self, df):
-        return patternProb(df, 'CDLLADDERBOTTOM')
+        return self.patternProb(df, 'CDLLADDERBOTTOM')
         
     def CDLLONGLEGGEDDOJI(self, df):
-        return patternProb(df, 'CDLLONGLEGGEDDOJI')
+        return self.patternProb(df, 'CDLLONGLEGGEDDOJI')
         
     def CDLLONGLINE(self, df):
-        return patternProb(df, 'CDLLONGLINE')
+        return self.patternProb(df, 'CDLLONGLINE')
         
     def CDLMARUBOZU(self, df):
-        return patternProb(df, 'CDLMARUBOZU')
+        return self.patternProb(df, 'CDLMARUBOZU')
         
     def CDLMATCHINGLOW(self, df):
-        return patternProb(df, 'CDLMATCHINGLOW')
+        return self.patternProb(df, 'CDLMATCHINGLOW')
         
     def CDLMORNINGDOJISTAR(self, df):
-        return patternProb(df, 'CDLMORNINGDOJISTAR')
+        return self.patternProb(df, 'CDLMORNINGDOJISTAR')
         
     def CDLMORNINGSTAR(self, df):
-        return patternProb(df, 'CDLMORNINGSTAR')
+        return self.patternProb(df, 'CDLMORNINGSTAR')
         
     def CDLRICKSHAWMAN(self, df):
-        return patternProb(df, 'CDLRICKSHAWMAN')
+        return self.patternProb(df, 'CDLRICKSHAWMAN')
         
     def CDLRISEFALL3METHODS(self, df):
-        return patternProb(df, 'CDLRISEFALL3METHODS')
+        return self.patternProb(df, 'CDLRISEFALL3METHODS')
         
     def CDLSEPARATINGLINES(self, df):
-        return patternProb(df, 'CDLSEPARATINGLINES')
+        return self.patternProb(df, 'CDLSEPARATINGLINES')
         
     def CDLSHORTLINE(self, df):
-        return patternProb(df, 'CDLSHORTLINE')
+        return self.patternProb(df, 'CDLSHORTLINE')
         
     def CDLSTICKSANDWICH(self, df):
-        return patternProb(df, 'CDLSTICKSANDWICH')
+        return self.patternProb(df, 'CDLSTICKSANDWICH')
         
     def CDLTAKURI(self, df):
-        return patternProb(df, 'CDLTAKURI')
+        return self.patternProb(df, 'CDLTAKURI')
         
     def CDLTASUKIGAP(self, df):
-        return patternProb(df, 'CDLTASUKIGAP')
+        return self.patternProb(df, 'CDLTASUKIGAP')
         
     def CDLUNIQUE3RIVER(self, df):
-        return patternProb(df, 'CDLUNIQUE3RIVER')
+        return self.patternProb(df, 'CDLUNIQUE3RIVER')
