@@ -1,4 +1,4 @@
-name = 'DPTTools'
+name = 'MLTA'
 
 import numpy as np
 import pandas as pd
