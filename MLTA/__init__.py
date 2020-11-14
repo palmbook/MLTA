@@ -29,9 +29,9 @@ class Candlestick:
         divisor = df[['Open', 'High', 'Low', 'Close']].mean(axis=1)
         df = df[['Open', 'High', 'Low', 'Close']].div(divisor, axis=0)
         
-        y_pred = candle_models[pattern].predict_proba(df)
+        y_pred = self.candle_models[pattern].predict_proba(df)
         
-        return pd.DataFrame(y_pred, columns = [pattern + '_class_' + str(c) for c in candle_models[pattern].classes_], index=df.index)
+        return pd.DataFrame(y_pred, columns = [pattern + '_class_' + str(c) for c in self.candle_models[pattern].classes_], index=df.index)
         
     def CDL3INSIDE(self, df):
         return self.patternProb(df, 'CDL3INSIDE')
