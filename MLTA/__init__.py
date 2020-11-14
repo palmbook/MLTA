@@ -14,7 +14,7 @@ class Candlestick:
     file_path = os.path.join(module_dir, 'candle_models.joblib')
     candle_models = joblib.load(file_path)
     
-    def checkDF(df):
+    def checkDF(self, df):
         assert 'Open' in df.columns
         assert 'High' in df.columns
         assert 'Low' in df.columns
@@ -22,7 +22,7 @@ class Candlestick:
         
         assert df.shape[0] > 0
         
-    def patternProb(df, pattern):
+    def patternProb(self, df, pattern):
         checkDF(df)
         
         df = df.copy()
@@ -33,89 +33,89 @@ class Candlestick:
         
         return pd.DataFrame(y_pred, columns = [pattern + '_class_' + str(c) for c in candle_models[pattern].classes_], index=df.index)
         
-    def CDL3INSIDE(df):
+    def CDL3INSIDE(self, df):
         return patternProb(df, 'CDL3INSIDE')
         
-    def CDL3LINESTRIKE(df):
+    def CDL3LINESTRIKE(self, df):
         return patternProb(df, 'CDL3LINESTRIKE')
         
-    def CDL3OUTSIDE(df):
+    def CDL3OUTSIDE(self, df):
         return patternProb(df, 'CDL3OUTSIDE')
         
-    def CDL3WHITESOLDIERS(df):
+    def CDL3WHITESOLDIERS(self, df):
         return patternProb(df, 'CDL3WHITESOLDIERS')
         
-    def CDLCLOSINGMARUBOZU(df):
+    def CDLCLOSINGMARUBOZU(self, df):
         return patternProb(df, 'CDLCLOSINGMARUBOZU')
         
-    def CDLCOUNTERATTACK(df):
+    def CDLCOUNTERATTACK(self, df):
         return patternProb(df, 'CDLCOUNTERATTACK')
         
-    def CDLDOJI(df):
+    def CDLDOJI(self, df):
         return patternProb(df, 'CDLDOJI')
         
-    def CDLDRAGONFLYDOJI(df):
+    def CDLDRAGONFLYDOJI(self, df):
         return patternProb(df, 'CDLDRAGONFLYDOJI')
         
-    def CDLGAPSIDESIDEWHITE(df):
+    def CDLGAPSIDESIDEWHITE(self, df):
         return patternProb(df, 'CDLGAPSIDESIDEWHITE')
         
-    def CDLGRAVESTONEDOJI(df):
+    def CDLGRAVESTONEDOJI(self, df):
         return patternProb(df, 'CDLGRAVESTONEDOJI')
         
-    def CDLHAMMER(df):
+    def CDLHAMMER(self, df):
         return patternProb(df, 'CDLHAMMER')
         
-    def CDLHARAMI(df):
+    def CDLHARAMI(self, df):
         return patternProb(df, 'CDLHARAMI')
         
-    def CDLHOMINGPIGEON(df):
+    def CDLHOMINGPIGEON(self, df):
         return patternProb(df, 'CDLHOMINGPIGEON')
     
-    def CDLINVERTEDHAMMER(df):
+    def CDLINVERTEDHAMMER(self, df):
         return patternProb(df, 'CDLINVERTEDHAMMER')
     
-    def CDLLADDERBOTTOM(df):
+    def CDLLADDERBOTTOM(self, df):
         return patternProb(df, 'CDLLADDERBOTTOM')
         
-    def CDLLONGLEGGEDDOJI(df):
+    def CDLLONGLEGGEDDOJI(self, df):
         return patternProb(df, 'CDLLONGLEGGEDDOJI')
         
-    def CDLLONGLINE(df):
+    def CDLLONGLINE(self, df):
         return patternProb(df, 'CDLLONGLINE')
         
-    def CDLMARUBOZU(df):
+    def CDLMARUBOZU(self, df):
         return patternProb(df, 'CDLMARUBOZU')
         
-    def CDLMATCHINGLOW(df):
+    def CDLMATCHINGLOW(self, df):
         return patternProb(df, 'CDLMATCHINGLOW')
         
-    def CDLMORNINGDOJISTAR(df):
+    def CDLMORNINGDOJISTAR(self, df):
         return patternProb(df, 'CDLMORNINGDOJISTAR')
         
-    def CDLMORNINGSTAR(df):
+    def CDLMORNINGSTAR(self, df):
         return patternProb(df, 'CDLMORNINGSTAR')
         
-    def CDLRICKSHAWMAN(df):
+    def CDLRICKSHAWMAN(self, df):
         return patternProb(df, 'CDLRICKSHAWMAN')
         
-    def CDLRISEFALL3METHODS(df):
+    def CDLRISEFALL3METHODS(self, df):
         return patternProb(df, 'CDLRISEFALL3METHODS')
         
-    def CDLSEPARATINGLINES(df):
+    def CDLSEPARATINGLINES(self, df):
         return patternProb(df, 'CDLSEPARATINGLINES')
         
-    def CDLSHORTLINE(df):
+    def CDLSHORTLINE(self, df):
         return patternProb(df, 'CDLSHORTLINE')
         
-    def CDLSTICKSANDWICH(df):
+    def CDLSTICKSANDWICH(self, df):
         return patternProb(df, 'CDLSTICKSANDWICH')
         
-    def CDLTAKURI(df):
+    def CDLTAKURI(self, df):
         return patternProb(df, 'CDLTAKURI')
         
-    def CDLTASUKIGAP(df):
+    def CDLTASUKIGAP(self, df):
         return patternProb(df, 'CDLTASUKIGAP')
         
-    def CDLUNIQUE3RIVER(df):
+    def CDLUNIQUE3RIVER(self, df):
         return patternProb(df, 'CDLUNIQUE3RIVER')
