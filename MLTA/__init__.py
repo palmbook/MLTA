@@ -7,8 +7,12 @@ import joblib
 
 from catboost import CatBoostClassifier
 
+import os
+
 class Candlestick:
-    candle_models = joblib.load('candle_models.joblib')
+    module_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(module_dir, 'candle_models.joblib')
+    candle_models = joblib.load(file_path)
     
     def checkDF(df):
         assert 'Open' in df.columns
