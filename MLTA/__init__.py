@@ -15,10 +15,10 @@ class Candlestick:
     candle_models = joblib.load(file_path)
     
     def checkDF(self, df):
-        assert 'Open' in df.columns
-        assert 'High' in df.columns
-        assert 'Low' in df.columns
-        assert 'Close' in df.columns
+        assert 'open' in df.columns
+        assert 'high' in df.columns
+        assert 'low' in df.columns
+        assert 'close' in df.columns
         
         assert df.shape[0] > 0
         
@@ -26,8 +26,8 @@ class Candlestick:
         self.checkDF(df)
         
         df = df.copy()
-        divisor = df[['Open', 'High', 'Low', 'Close']].mean(axis=1)
-        df = df[['Open', 'High', 'Low', 'Close']].div(divisor, axis=0)
+        divisor = df[['open', 'high', 'low', 'close']].mean(axis=1)
+        df = df[['open', 'high', 'low', 'close']].div(divisor, axis=0)
         
         y_pred = self.candle_models[pattern].predict_proba(df)
         
@@ -119,3 +119,9 @@ class Candlestick:
         
     def CDLUNIQUE3RIVER(self, df):
         return self.patternProb(df, 'CDLUNIQUE3RIVER')
+        
+    def bullishPin(self, df):
+        return self.patternProb(df, 'bullishPin')
+        
+    def bearishPin(self, df):
+        return self.patternProb(df, 'bearishPin')
