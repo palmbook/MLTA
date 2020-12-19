@@ -12,7 +12,7 @@ MLTA enables this possibility. Instead of returning classes, MLTA generates the 
 
 MLTA is not yet on pypi. You can install the package through the following command:
 
-pip install git+https://github.com/palmbook/MLTA.git
+	pip install git+https://github.com/palmbook/MLTA.git
 
 ## Usage
 
