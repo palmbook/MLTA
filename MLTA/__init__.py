@@ -125,3 +125,23 @@ class Candlestick:
         
     def bearishPin(self, df):
         return self.patternProb(df, 'bearishPin')
+
+class AdvancedIndicators:
+
+    @staticmethod
+    def fibonacciMovingAverage(df, p=10):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        assert p <= 15, 'p can only be equal to or less than 15.'
+        assert p > 1, 'p can only be more than 1.'
+        
+        df = df.copy()
+        
+        sequence = [2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584]
+        
+        total = df['close'].rolling(2).mean()
+        
+        for i in range(1, p):
+            total = total + df['close'].rolling(sequence[i]).mean()
+        
+        return total / p
+        
