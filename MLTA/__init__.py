@@ -144,4 +144,59 @@ class AdvancedIndicators:
             total = total + df['close'].rolling(sequence[i]).mean()
         
         return total / p
+    
+    @staticmethod
+    def countdownIndicator(df, p=8):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        assert 'open' in df.columns, 'Column "open" must be in dataframe.'
+        assert 'high' in df.columns, 'Column "high" must be in dataframe.'
+        assert 'low' in df.columns, 'Column "low" must be in dataframe.'
+        assert p > 1, 'p can only be more than 1.'
+        
+        df = df.copy()
+        
+        df['upside1'] = df['close'] > df['open']
+        df['upside2'] = df['high'] > df['high'].shift(1)
+        
+        df['downside1'] = df['close'] < df['open']
+        df['downside2'] = df['low'] < df['low'].shift(1)
+        
+        df['cup'] = df['upside1'].rolling(p).sum() + df['upside2'].rolling(p).sum()
+        df['cdp'] = df['downside1'].rolling(p).sum() + df['downside2'].rolling(p).sum()
+        
+        return (df['cup'] - df['cdp']).rolling(3).mean()
+       
+    @staticmethod
+    def supplyDemandIndicator(df):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        assert 'open' in df.columns, 'Column "open" must be in dataframe.'
+        assert 'high' in df.columns, 'Column "high" must be in dataframe.'
+        assert 'low' in df.columns, 'Column "low" must be in dataframe.'
+        
+        return ((df['high'] - df[['open', 'close']].max(axis=1)) - (df['low'] - df[['open', 'close']].min(axis=1))) / df['close']
+
+class Transform:
+    
+    @staticmethod
+    def fractionalDifferencing(series, d, window=20):
+        def diffVector(d, window):
+            w = 1
+            vector = list()
+            vector.append(w)
+
+            for k in range(1, window):
+                w = -w *( (d - k + 1) / k)
+                vector.append(w)
+
+            return np.array(vector)
+        
+        dvector = diffVector(d, window)
+        
+        def dot(a):
+            return np.dot(a, dvector)
+        
+        result = np.log(series).rolling(window).apply(dot)
+        
+        return result
+        
         
