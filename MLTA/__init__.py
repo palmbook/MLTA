@@ -173,7 +173,7 @@ class AdvancedIndicators:
         assert 'high' in df.columns, 'Column "high" must be in dataframe.'
         assert 'low' in df.columns, 'Column "low" must be in dataframe.'
         
-        return ((df['high'] - df[['open', 'close']].max(axis=1)) - (df['low'] - df[['open', 'close']].min(axis=1))) / df['close']
+        return ((df['high'] - df[['open', 'close']].max(axis=1)) - (df[['open', 'close']].min(axis=1) - df['low'])) / df['close']
 
 class Transform:
     
