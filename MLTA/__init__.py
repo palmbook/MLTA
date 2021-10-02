@@ -5,6 +5,8 @@ import pandas as pd
 
 import joblib
 
+import ta
+
 from catboost import CatBoostClassifier
 
 import os
@@ -174,6 +176,54 @@ class AdvancedIndicators:
         assert 'low' in df.columns, 'Column "low" must be in dataframe.'
         
         return ((df['high'] - df[['open', 'close']].max(axis=1)) - (df[['open', 'close']].min(axis=1) - df['low'])) / df['close']
+        
+    @staticmethod
+    def superTrend(df, p=14, mult=2):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        assert 'high' in df.columns, 'Column "high" must be in dataframe.'
+        assert 'low' in df.columns, 'Column "low" must be in dataframe.'
+        
+        df = df.copy()
+        
+        df['atr'] = ta.volatility.average_true_range(df['high'], df['low'], df['close'], window=p)
+        
+        df['basicub'] = ((df['high'] + df['low']) / 2) + (mult * df['atr'])
+        df['basiclb'] = ((df['high'] + df['low']) / 2) - (mult * df['atr'])
+        
+        finalub = list()
+        finallb = list()
+        for i in range(df.shape[0]):
+            if (i == 0):
+                finalub.append(df['basicub'].iloc[i])
+                finallb.append(df['basiclb'].iloc[i])
+            else:
+                if (df['basicub'].iloc[i] < finalub[i - 1]) | (df['close'].iloc[i - 1] > finalub[i - 1]):
+                    finalub.append(df['basicub'].iloc[i])
+                else:
+                    finalub.append(finalub[i - 1])
+                
+                if (df['basiclb'].iloc[i] > finallb[i - 1]) | (df['close'].iloc[ i - 1] < finallb[i  -1]):
+                    finallb.append(df['basiclb'].iloc[i])
+                else:
+                    finallb.append(finallb[i - 1])
+        
+        supertrend = list()
+        for i in range(df.shape[0]):
+            if (i == 0):
+                supertrend.append(finalub[i])
+            else:
+                if (supertrend[i - 1] == finalub[i - 1]) & (df['close'].iloc[i] <= finalub[i]):
+                    supertrend.append(finalub[i])
+                elif (supertrend[i - 1] == finalub[i - 1]) & (df['close'].iloc[i] > finalub[i]):
+                    supertrend.append(finallb[i])
+                elif (supertrend[i - 1] == finallb[i - 1]) & (df['close'].iloc[i] >= finallb[i]):
+                    supertrend.append(finallb[i])
+                else:
+                    supertrend.append(finalub[i])
+        
+        df['SuperTrend'] = supertrend
+        
+        return df['SuperTrend']
 
 class Transform:
     
