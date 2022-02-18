@@ -1,0 +1,10 @@
+MANIFEST.in
+README.md
+setup.py
+MLTA/__init__.py
+MLTA/candle_models.joblib
+MLTA.egg-info/PKG-INFO
+MLTA.egg-info/SOURCES.txt
+MLTA.egg-info/dependency_links.txt
+MLTA.egg-info/requires.txt
+MLTA.egg-info/top_level.txt

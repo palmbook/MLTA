@@ -224,7 +224,22 @@ class AdvancedIndicators:
         df['SuperTrend'] = supertrend
         
         return df['SuperTrend']
-
+    @staticmethod
+    def RainbowIndex(df):
+        df = df.copy()
+        
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        
+        df = df[['close']].copy()
+        
+        for i in range(2, 102):
+            df['sma' + str(i)] = df['close'] > df['close'].rolling(i).mean()
+        
+        df['score'] = df.drop(['close'], axis=1).mean(axis=0)
+        
+        return df['score']
+        
+        
 class Transform:
     
     @staticmethod
