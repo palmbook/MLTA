@@ -235,7 +235,7 @@ class AdvancedIndicators:
         for i in range(2, 102):
             df['sma' + str(i)] = df['close'] > df['close'].rolling(i).mean()
         
-        df['score'] = df.drop(['close'], axis=1).mean(axis=0)
+        df['score'] = df.drop(['close'], axis=1).mean(axis=1)
         
         return df['score']
         
