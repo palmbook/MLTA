@@ -281,7 +281,7 @@ class AdvancedIndicators:
         
         df['KVF'] = df['volume'] * (2 * ((df['KDM'] / df['KCM'].clip(lower=0.0001)) - 1)) * df['KTrend'] * 100
         
-        df['KlingerOscillator'] = df['KVF'].ewm(span=34) - df['KVF'].ewm(span=55)
+        df['KlingerOscillator'] = df['KVF'].ewm(span=34).mean() - df['KVF'].ewm(span=55).mean()
         
         return df['KlingerOscillator']
         

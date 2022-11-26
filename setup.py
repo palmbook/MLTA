@@ -15,7 +15,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="MLTA",
-    version="0.0.7a",
+    version="0.0.7b",
     author="DeeperTrade",
     author_email="chakrit.y@deepertrade.com",
     description="Technical Analysis enhanced through Machine Learning",
