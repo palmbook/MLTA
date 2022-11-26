@@ -279,7 +279,7 @@ class AdvancedIndicators:
                     cm.append(df['KDM'].iloc[i-1] + df['KDM'].iloc[i])
         df['KCM'] = cm
         
-        df['KVF'] = df['volume'] * (2 * ((df['KDM'] / df['KCM'].clip(lower=0.0001)) - 1) * df['KTrend'] * 100
+        df['KVF'] = df['volume'] * (2 * ((df['KDM'] / df['KCM'].clip(lower=0.0001)) - 1)) * df['KTrend'] * 100
         
         df['KlingerOscillator'] = df['KVF'].ewm(span=34) - df['KVF'].ewm(span=55)
         
