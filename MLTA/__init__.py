@@ -239,6 +239,51 @@ class AdvancedIndicators:
         
         return df['score']
         
+    @staticmethod
+    def RainbowIndexLT(df):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        
+        df = df[['close']].copy()
+        
+        df['RainbowIndexLT'] = (df['close'] > df['close'].rolling(10).mean()).astype('int')
+        total = 1
+        
+        for i in range(20, 500, 10):
+            df['RainbowIndexLT'] = df['RainbowIndexLT'] + (df['close'] > df['close'].rolling(i).mean()).astype('int')
+            total += 1
+        
+        df['RainbowIndexLT'] = df['RainbowIndexLT'] / total
+        
+        return df['RainbowIndexLT']
+        
+    @staticmethod
+    def KlingerOscillator(df):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        assert 'high' in df.columns, 'Column "high" must be in dataframe.'
+        assert 'low' in df.columns, 'Column "low" must be in dataframe.'
+        assert 'volume' in df.columns, 'Column "volume" must be in dataframe.'
+        
+        df['KTrend'] = -1 + (2 * ((df['high'] + df['low'] + df['close']) >
+            (df['high'] + df['low'] + df['close']).shift(1)).astype('int'))
+        df['KDM'] = df['high'] - df['low']
+        
+        cm = list()
+        for i in range(0, df.shape[0]):
+            if i == 0:
+                cm.append(df['KDM'].iloc[i])
+            else:
+                if df['KTrend'].iloc[i] == df['KTrend'].iloc[i-1]:
+                    lastcm = cm[-1]
+                    cm.append(lastcm + df['KDM'].iloc[i])
+                else:
+                    cm.append(df['KDM'].iloc[i-1] + df['KDM'].iloc[i])
+        df['KCM'] = cm
+        
+        df['KVF'] = df['volume'] * (2 * ((df['KDM'] / df['KCM'].clip(lower=0.0001)) - 1) * df['KTrend'] * 100
+        
+        df['KlingerOscillator'] = df['KVF'].ewm(span=34) - df['KVF'].ewm(span=55)
+        
+        return df['KlingerOscillator']
         
 class Transform:
     
