@@ -257,12 +257,14 @@ class AdvancedIndicators:
         return df['RainbowIndexLT']
         
     @staticmethod
-    def KlingerOscillator(df):
+    def KlingerOscillator(df, return_all=False):
         assert 'close' in df.columns, 'Column "close" must be in dataframe.'
         assert 'high' in df.columns, 'Column "high" must be in dataframe.'
         assert 'low' in df.columns, 'Column "low" must be in dataframe.'
         assert 'volume' in df.columns, 'Column "volume" must be in dataframe.'
         
+        df = df.copy()
+            
         df['KTrend'] = -1 + (2 * ((df['high'] + df['low'] + df['close']) >
             (df['high'] + df['low'] + df['close']).shift(1)).astype('int'))
         df['KDM'] = df['high'] - df['low']
@@ -283,6 +285,9 @@ class AdvancedIndicators:
         
         df['KlingerOscillator'] = df['KVF'].ewm(span=34).mean() - df['KVF'].ewm(span=55).mean()
         
+        if return_all:
+            return df[['KTrend', 'KDM', 'KCM', 'KVF', 'KlingerOscillator']]
+            
         return df['KlingerOscillator']
         
 class Transform:
