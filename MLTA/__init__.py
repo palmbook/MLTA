@@ -290,6 +290,24 @@ class AdvancedIndicators:
             
         return df['KlingerOscillator']
         
+    @staticmethod
+    def LogRegressionZScore(df, period=100):
+        assert 'close' in df.columns, 'Column "close" must be in dataframe.'
+        
+        def LRZ(close):
+            df = pd.DataFrame(close, columns=['close'])
+            
+            df['x'] = np.arange(df.shape[0])
+            df['price_y']=np.log(df['close'])
+            
+            b,a =np.polyfit(df['x'],df['price_y'],1)
+            
+            df['priceTL']=b*df['x'] + a
+            df['y-TL']=df['price_y']-df['priceTL']
+            return df.iloc[-1]['y-TL'] / np.std(df['y-TL'])
+        
+        return df['close'].rolling(period).apply(LRZ)
+        
 class Transform:
     
     @staticmethod
